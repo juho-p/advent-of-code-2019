@@ -20,18 +20,18 @@ fn improved_fuel_required(mass: i32)  -> i32 {
     }
 }
 
-fn fuel_sum(masses: &Vec<i32>, f: fn(i32) -> i32) -> i32 {
+fn fuel_sum(masses: &[i32], f: fn(i32) -> i32) -> i32 {
     masses.iter()
         .cloned()
         .map(f)
         .sum()
 }
 
-fn part1(masses: &Vec<i32>) -> i32 {
+fn part1(masses: &[i32]) -> i32 {
     fuel_sum(masses, fuel_required)
 }
 
-fn part2(masses: &Vec<i32>) -> i32 {
+fn part2(masses: &[i32]) -> i32 {
     fuel_sum(masses, improved_fuel_required)
 }
 
