@@ -1,10 +1,9 @@
 extern crate aoc19;
 
-use std::fs;
 use aoc19::intcode::*;
 
 fn run(init: Vec<Word>, a: Word, b: Word) -> Word {
-    let mut computer = ComputerState::new(init);
+    let mut computer = ComputerState::new(init, vec![]);
     computer.write(1, a).unwrap();
     computer.write(2, b).unwrap();
 
@@ -16,17 +15,7 @@ fn run(init: Vec<Word>, a: Word, b: Word) -> Word {
 }
 
 fn main() -> std::io::Result<()> {
-    let input_string = fs::read_to_string("inputs/day02.txt")?;
-
-    let values: Vec<_> = input_string.trim_end().split(',')
-        .flat_map(|token| {
-            let parse_result = token.parse::<Word>();
-            if parse_result.is_err() {
-                println!("Invalid input `{}` {:?}", token, parse_result);
-            }
-            parse_result
-        })
-        .collect();
+    let values: Vec<_> = read_program_file("inputs/day02.txt")?;
 
     let part1 = run(values.clone(), 12, 2);
     println!("part 1: {}", part1);
