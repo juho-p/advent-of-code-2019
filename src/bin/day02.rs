@@ -3,13 +3,11 @@ extern crate aoc19;
 use aoc19::intcode::*;
 
 fn run(init: Vec<Word>, a: Word, b: Word) -> Word {
-    let mut computer = ComputerState::new(init, vec![]);
+    let mut computer = State::new(init, vec![]);
     computer.write(1, a).unwrap();
     computer.write(2, b).unwrap();
 
-    while !computer.is_finished() {
-        computer.step().unwrap();
-    }
+    while computer.step().unwrap() != Status::Halted {}
 
     computer.read(0).unwrap()
 }

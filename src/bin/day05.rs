@@ -8,17 +8,16 @@ fn main() -> Result<()> {
     let prog = intcode::read_program_file("inputs/day05.txt")?;
 
     {
-        let mut cpu = intcode::ComputerState::new(prog.clone(), vec![1]);
-        cpu.run_until_finished()?;
+        let state = intcode::State::new(prog.clone(), vec![1]);
+        let x = intcode::output_iter(state).last().ok_or("no output")??;
 
-        println!("part1: {:?}", cpu.output().last());
+        println!("part1: {:?}", x);
     }
 
     {
-        let mut cpu = intcode::ComputerState::new(prog, vec![5]);
-        cpu.run_until_finished()?;
+        let output = intcode::run_until_output(&mut intcode::State::new(prog, vec![5]))?;
 
-        println!("part1: {:?}", cpu.output());
+        println!("part2: {:?}", output);
     }
 
     Ok(())
